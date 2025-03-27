@@ -1,0 +1,70 @@
+name;category;value
+Pike;Freshwater;120.5
+Perch;Freshwater;35.2
+Baltic Herring;Marine;25.8
+Cod;Marine;85.4
+Salmon;Migratory;150.3
+Bream;Freshwater;45.7
+Roach;Freshwater;28.3
+Vendace;Freshwater;22.1
+Sprat;Marine;15.6
+Eel;Migratory;95.2
+Trout;Freshwater;75.4
+Whitefish;Freshwater;65.8
+Smelt;Marine;18.9
+Vimba;Freshwater;42.3
+Ruffe;Freshwater;15.7
+Burbot;Freshwater;68.4
+Flounder;Marine;55.6
+Sea Trout;Migratory;125.8
+Zander;Freshwater;82.3
+Atlantic Salmon;Migratory;75
+Chinook Salmon;Migratory;90
+Coho Salmon;Migratory;71
+Sockeye Salmon;Migratory;65
+Rainbow Trout;Freshwater;50
+Brown Trout;Freshwater;60
+Brook Trout;Freshwater;40
+Largemouth Bass;Freshwater;38
+Smallmouth Bass;Freshwater;35
+Northern Pike;Freshwater;100
+Muskellunge;Freshwater;120
+Walleye;Freshwater;80
+Bluegill;Freshwater;25
+Crappie;Freshwater;30
+Channel Catfish;Freshwater;90
+Flathead Catfish;Freshwater;100
+European Perch;Freshwater;45
+Zander;Freshwater;70
+Tilapia;Freshwater;50
+Oscar Fish;Freshwater;45
+Guppy;Freshwater;5
+Neon Tetra;Freshwater;4
+Clownfish;Marine;11
+Blue Tang;Marine;25
+Moorish Idol;Marine;23
+Lionfish;Marine;38
+Mandarinfish;Marine;6
+Yellow Tang;Marine;20
+Butterflyfish;Marine;22
+Angelfish;Marine;35
+Giant Trevally;Marine;170
+Great Barracuda;Marine;200
+Mahi-Mahi;Marine;127
+Swordfish;Marine;300
+Blue Marlin;Marine;350
+Sailfish;Marine;330
+Yellowfin Tuna;Marine;210
+Skipjack Tuna;Marine;110
+Atlantic Cod;Marine;200
+Pacific Halibut;Marine;250
+Ocean Sunfish;Marine;300
+European Eel;Migratory;100
+American Eel;Migratory;120
+Japanese Eel;Migratory;150
+Beluga Sturgeon;Migratory;500
+White Sturgeon;Migratory;450
+Herring;Migratory;45
+Anchovy;Marine;20
+Mackerel;Marine;60
+Bonito;Marine;75

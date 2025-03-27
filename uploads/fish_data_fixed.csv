@@ -1,0 +1,10 @@
+name,latin_name,habitat,max_length_cm,max_weight_kg,lifespan_years,status
+Līdaka,Esox lucius,Saldūdens,150,25.0,25,Parasta
+Asaris,Perca fluviatilis,Saldūdens,60,4.0,10,Parasta
+Zandarts,Sander lucioperca,Saldūdens,100,20.0,15,Parasta
+Sams,Silurus glanis,Saldūdens,300,150.0,60,Parasta
+Tuncis,Thunnus thynnus,Jūras,250,400.0,35,Apdraudēta
+Siļķe,Clupea harengus,Jūras,45,1.5,20,Parasta
+Lasis,Salmo salar,Abas,150,46.0,13,Apdraudēta
+Forele,Salmo trutta,Abas,80,12.0,20,Parasta
+Menca,Gadus morhua,Jūras,150,50.0,25,Parasta

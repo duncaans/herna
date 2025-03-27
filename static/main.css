@@ -1,0 +1,200 @@
+/* Custom Variables */
+:root {
+    --primary-font: 'arial', sans-serif;
+    --transition-speed: 0.3s;
+}
+
+/* Global Styles */
+body{
+    font-family: var(--primary-font);
+    line-height: 1.6;
+    background: linear-gradient(180deg,#7AB2D3 0%, #00484b 100%);
+    background-image: url("https://oceanpanel.org/wp-content/uploads/2022/05/scuba-diver-and-schooling-fish-2021-08-26-18-09-53-utc-scaled.jpg");
+    background-size: cover; /* Ensures the image covers the entire background */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+}
+body {
+    color: #ffffff;
+  }
+  
+  h1 {
+    color: rgb(231, 228, 241);
+  }
+  h2 {
+    color: rgb(255, 255, 255);
+  }
+/* Header Styles */
+header {
+    background: linear-gradient(90deg, #0C0950 0%, #0f55b6 100%);
+}
+th, tr {
+    background-color: white;
+    color: black;
+    opacity: 0.6;
+  }
+  tr:hover {background-color: #00f7ff;}
+header img {
+    max-height: 300px;
+    object-fit: cover;
+}
+
+/* Card Styles */
+.card {
+    color:black;
+    border: none;
+    transition: all var(--transition-speed) ease;
+}
+
+.card:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Navigation Styles */
+.navbar {
+    background: linear-gradient(180deg, #001A6E 0%, #001a6e 180%) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.nav-link {
+    font-weight: 500;
+    transition: all var(--transition-speed) ease;
+}
+
+.nav-link:hover {
+    transform: translateY(-2px);
+}
+
+/* Button Styles */
+.btn {
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: all var(--transition-speed) ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-lg {
+    padding: 0.75rem 1.5rem;
+}
+
+/* Form Styles */
+.form-control {
+    border: 1px solid #8fc6fd;
+    padding: 0.75rem;
+    transition: all var(--transition-speed) ease;
+}
+
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Alert Styles */
+.alert {
+    border: none;
+    border-radius: 0.5rem;
+}
+
+/* Chart Container Styles */
+.chart-container {
+    background-color: #16cdda;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+/* Statistics Card Styles */
+.stat-card {
+    border-radius: 1rem;
+    padding: 1.5rem;
+    height: 100%;
+    transition: all var(--transition-speed) ease;
+}
+
+.stat-card h6 {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.stat-card h3 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+/* Upload Area Styles */
+.upload-area {
+    border: 2px dashed #359aff;
+    border-radius: 1rem;
+    transition: all var(--transition-speed) ease;
+}
+
+.upload-area:hover {
+    border-color: #0d6efd;
+    background-color: rgba(13, 110, 253, 0.05) !important;
+}
+
+/* Footer Styles */
+footer {
+    background: linear-gradient(135deg, #00484b 0%, #00484b 100%);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    header img {
+        max-height: 200px;
+    }
+
+    .stat-card {
+        margin-bottom: 1rem;
+    }
+
+    .btn-lg {
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #0a58ca;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #0a58ca;
+}
+img {
+    max-width: 10%;
+    height: auto;
+  }

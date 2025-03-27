@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}Latvian Fish Species Analysis{% endblock %}
+
+{% block header %}No Fishy Math, Just Facts!{% endblock %}
+{% block subheader %}Interactive visualization of fish in tables...{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Filters Section -->
+    <div class="col-12 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title mb-3">
+                    <i class="fas fa-filter text-primary me-2"></i>
+                    Size Matters?
+                </h5>
+                <form method="GET" class="row g-3 align-items-end">
+                    <div class="col-md-4">
+                        <label for="min_value" class="form-label">Minimum Size (cm)</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fas fa-ruler"></i>
+                            </span>
+                            <input type="number" 
+                                   class="form-control" 
+                                   id="min_value" 
+                                   name="min_value" 
+                                   value="{{ min_value }}"
+                                   step="0.1">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-search me-2"></i>
+                            Apply Length
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="col-md-6 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h5 class="card-title mb-3">
+                    <i class="fas fa-fish text-primary me-2"></i>
+                    Species by Habitat
+                </h5>
+                <div id="chart1" class="chart-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h5 class="card-title mb-3">
+                    <i class="fas fa-ruler text-success me-2"></i>
+                    Size Distribution
+                </h5>
+                <div id="chart2" class="chart-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Section -->
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title mb-4">
+                    <i class="fas fa-calculator text-info me-2"></i>
+                    Species Statistics
+                </h5>
+                <div class="row g-4">
+                    <div class="col-md-3">
+                        <div class="stat-card bg-primary bg-opacity-10 p-3 rounded">
+                            <h6 class="text-primary">Total Species</h6>
+                            <h3 id="total-records">Loading...</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card bg-success bg-opacity-10 p-3 rounded">
+                            <h6 class="text-success">Average Size</h6>
+                            <h3 id="avg-value">Loading...</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card bg-info bg-opacity-10 p-3 rounded">
+                            <h6 class="text-info">Largest Size</h6>
+                            <h3 id="max-value">Loading...</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card bg-warning bg-opacity-10 p-3 rounded">
+                            <h6 class="text-warning">Habitat Types</h6>
+                            <h3 id="category-count">Loading...</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.chart-container {
+    min-height: 400px;
+}
+
+.stat-card {
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+</style>
+
+{% block scripts %}
+<script>
+// Render charts using Plotly
+document.addEventListener('DOMContentLoaded', function() {
+    try {
+        // Parse the JSON data from Flask
+        const chart1Data = JSON.parse('{{ chart1_json | safe }}');
+        const chart2Data = JSON.parse('{{ chart2_json | safe }}');
+
+        // Render Chart 1: Species by Habitat
+        Plotly.newPlot('chart1', chart1Data.data, chart1Data.layout);
+
+        // Render Chart 2: Size Distribution
+        Plotly.newPlot('chart2', chart2Data.data, chart2Data.layout);
+
+        // Function to update statistics
+        function updateStats() {
+            fetch('/api/stats')
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(data) {
+                    document.getElementById('total-records').textContent = data.total_records;
+                    document.getElementById('avg-value').textContent = data.average_value.toFixed(1) + ' cm';
+                    document.getElementById('max-value').textContent = data.max_value.toFixed(1) + ' cm';
+                    document.getElementById('category-count').textContent = data.category_count;
+                })
+                .catch(function(error) {
+                    console.error('Error fetching stats:', error);
+                });
+        }
+
+        // Initial stats update
+        updateStats();
+    } catch (error) {
+        console.error('Error initializing charts:', error);
+    }
+});
+</script>
+{% endblock %}
+{% endblock %}

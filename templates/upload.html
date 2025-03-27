@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Data - Data Visualization App{% endblock %}
+
+{% block header %}Uploading… Hope It’s Not Just Bait!{% endblock %}
+{% block subheader %}Upload your CSV file to start visualizing- Tables So Accurate, Even the Fish Agree!{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-body p-5">
+                <h3 class="card-title text-center mb-4">
+                    <i class="fas fa-file-upload text-primary me-2"></i>
+                    CSV File Upload
+                </h3>
+
+                <!-- File Upload Instructions -->
+                <div class="alert alert-info mb-4">
+                    <h5 class="alert-heading">
+                        <i class="fas fa-info-circle me-2"></i>
+                        File Requirements
+                    </h5>
+                    <hr>
+                    <p class="mb-0">Your CSV file should include the following columns:</p>
+                    <ul class="mb-0">
+                        <li><strong>name:</strong> A descriptive name or identifier (string)</li>
+                        <li><strong>category:</strong> The category or group (string)</li>
+                        <li><strong>value:</strong> A numeric value for analysis (float)</li>
+                    </ul>
+                </div>
+
+                <!-- Upload Form -->
+                <form method="POST" action="{{ url_for('upload') }}" enctype="multipart/form-data" class="needs-validation" novalidate>
+                    <div class="mb-4">
+                        <div class="upload-area p-5 text-center border rounded bg-light">
+                            <i class="fas fa-cloud-upload-alt fa-3x text-primary mb-3"></i>
+                            <h5>Drag & Drop deez fish or Click to Upload</h5>
+                            <input type="file"
+                                   name="file" 
+                                   id="file" 
+                                   class="form-control" 
+                                   accept=".csv"
+                                   required>
+                            <div class="invalid-feedback">
+                                Please select a CSV file.
+                            </div>
+                        </div>
+                        <div id="file-info" class="mt-2 text-center"></div>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg px-5">
+                            <i class="fas fa-upload me-2"></i>
+                            Upload Fishyyy🐡
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Example CSV Format -->
+        <div class="card mt-4 shadow-sm">
+            <div class="card-header bg-light">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-table me-2"></i>
+                    Example CSV Format
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Value(size in cm)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Eel</td>
+                                <td>Migratory</td>
+                                <td>150.0</td>
+                            </tr>
+                            <tr>
+                                <td>Perch</td>
+                                <td>Marine</td>
+                                <td>40.0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.upload-area {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.upload-area:hover {
+    background-color: #f8f9fa !important;
+    border-color: #0d6efd !important;
+}
+
+input[type="file"] {
+    cursor: pointer;
+}
+</style>
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Form validation
+    (function () {
+        'use strict'
+        var forms = document.querySelectorAll('.needs-validation')
+        Array.prototype.slice.call(forms).forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })();
+
+    // Drag and drop functionality
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.querySelector('input[type="file"]');
+    const fileInfo = document.getElementById('file-info');
+
+    uploadArea.addEventListener('click', () => fileInput.click());
+
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        uploadArea.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults (e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        uploadArea.addEventListener(eventName, highlight, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        uploadArea.addEventListener(eventName, unhighlight, false);
+    });
+
+    function highlight(e) {
+        uploadArea.classList.add('bg-light');
+    }
+
+    function unhighlight(e) {
+        uploadArea.classList.remove('bg-light');
+    }
+
+    uploadArea.addEventListener('drop', handleDrop, false);
+    fileInput.addEventListener('change', () => {
+        if (fileInput.files.length > 0) {
+            const fileName = fileInput.files[0].name;
+            const fileSize = fileInput.files[0].size;
+            fileInfo.innerText = `Selected file: ${fileName} (${formatFileSize(fileSize)})`;
+            uploadArea.classList.add('bg-light');
+        }
+    });
+
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        fileInput.files = files;
+        const fileName = files[0].name;
+        const fileSize = files[0].size;
+        fileInfo.innerText = `Selected file: ${fileName} (${formatFileSize(fileSize)})`;
+    }
+
+    function formatFileSize(size) {
+        const i = Math.floor(Math.log(size) / Math.log(1024));
+        return (size / Math.pow(1024, i)).toFixed(2) + ' ' + ['B', 'KB', 'MB', 'GB'][i];
+    }
+});
+</script>
+{% endblock %}
+{% endblock %}

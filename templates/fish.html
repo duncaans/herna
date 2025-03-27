@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Catch, Now in Spreadsheet Form!{% endblock %}
+{% block header %}Your Catch, Now in Spreadsheet Form!{% endblock %}
+{% block subheader %}🐟From Minnows to Monsters—Sorted!🐟{% endblock %}
+
+{% block content %}
+    <h1>Uploaded Fish Data</h1>
+    <form method="GET" action="{{ url_for('fish') }}">
+        <input type="text" name="search" placeholder="Search by name" value="{{ request.args.get('search', '') }}">
+        <button type="submit">Search</button>
+    </form>
+    <table class="table">
+        <thead>
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fish in fish_data %}
+            <tr>
+                <td>{{ fish.name }}</td>
+                <td>{{ fish.category }}</td>
+                <td>{{ fish.value }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endblock %}

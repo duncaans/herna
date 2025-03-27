@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Data Visualization App{% endblock %}
+
+{% block header %}Welcome to Gill-ty Measures{% endblock %}
+{% block subheader %}🐟Size REELy Matters!🐟{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+    <!-- Upload Card -->
+    <div class="col-md-6">
+        <div class="card h-100 shadow-sm hover-card">
+            <div class="card-body text-center p-5">
+                <i class="fas fa-upload fa-4x text-primary mb-4"></i>
+                <h3 class="card-title">Upload Data</h3>
+                <p class="card-text">
+                    Start by uploading your CSV file. We support files with columns for name, category, and numeric values.
+                </p>
+                <a href="{{ url_for('upload') }}" class="btn btn-primary btn-lg mt-3">
+                    <i class="fas fa-file-upload me-2"></i>Upload CSV
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Visualize Card -->
+    <div class="col-md-6">
+        <div class="card h-100 shadow-sm hover-card">
+            <div class="card-body text-center p-5">
+                <i class="fas fa-chart-bar fa-4x text-success mb-4"></i>
+                <h3 class="card-title">Visualize Data</h3>
+                <p class="card-text">
+                    Explore your data through interactive charts, histograms, and filtered views.
+                </p>
+                <a href="{{ url_for('visualize') }}" class="btn btn-success btn-lg mt-3">
+                    <i class="fas fa-chart-line me-2"></i>View Charts
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="col-12 mt-5">
+        <h2 class="text-center mb-5">Key Features</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <i class="fas fa-database fa-3x text-primary mb-3"></i>
+                    <h4>Data Management</h4>
+                    <p>Drop Your Data Like a Hot Catch! Easily upload and manage your CSV data files with our intuitive interface.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <i class="fas fa-chart-pie fa-3x text-success mb-3"></i>
+                    <h4>Interactive Charts</h4>
+                    <p>Charting the Big Catch! Create dynamic visualizations with Plotly for deeper data insights.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <i class="fas fa-filter fa-3x text-info mb-3"></i>
+                    <h4>Data Filtering</h4>
+                    <p>Sorting the Minnows from the Monsters! Apply filters to focus on specific aspects of your data analysis.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-card {
+        transition: transform 0.3s ease;
+    }
+    .hover-card:hover {
+        transform: translateY(-5px);
+    }
+</style>
+{% endblock %}
