@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Fish Drawing{% endblock %}
+
+{% block header %}Matplotlib is Art Master!!{% endblock %}
+{% block subheader %}Just keep plotting, just keep plotting… 🎶🐠{% endblock %}
+{% block content %}
+<div class="container">
+    <h2 style="text-align: center;">Fish Drawing by Matplotlib❤️‍🔥</h2>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+        <script>
+            const images = [
+                "/static/images/clownfish.png",
+                "/static/images/angelfish.png",
+                "/static/images/snapper.png",
+                "/static/images/grouper.png",
+                "/static/images/mackerel.png",
+                "/static/images/herring.png",
+                "/static/images/sardine.png",
+                "/static/images/tilapia.png",
+                "/static/images/flounder.png"
+            ];
+
+            // Shuffle the images array
+            images.sort(() => Math.random() - 0.5);
+
+            // Create image elements and append to the container
+            images.forEach(src => {
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = src.split('/').pop().split('.')[0]; // Get the fish name from the file name
+                img.className = "img-fluid";
+                img.style = "margin: 30px;"; // Add margin for spacing
+                document.write(img.outerHTML);
+            });
+        </script>
+    </div>
+</div>
+{% endblock %}

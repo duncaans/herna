@@ -22,11 +22,6 @@ ALLOWED_EXTENSIONS = {'csv'}
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/fish_drawing')
-def fish_drawing():
-    image_path = 'static/images/fish_drawing_image.png'  # Update with the actual image path
-    return render_template('fish_drawing.html', image_path=image_path)
-
 @app.route('/')
 def home():
     return render_template('home.html')
@@ -79,33 +74,49 @@ def fish():
     
     return render_template('fish.html', fish_data=fish_data)
 
+@app.route('/draw_fish', methods=['GET'])
+def draw_fish():
+    # Create a simple fish drawing using Matplotlib
+    plt.figure(figsize=(6, 4))
+    
+    # Draw a fish shape
+    fish_body = plt.Circle((0.5, 0.5), 0.4, color='blue', ec='black')
+    plt.gca().add_artist(fish_body)
+    
+    # Draw the tail
+    tail_x = [0.5, 0.1, 0.5]
+    tail_y = [0.5, 0.3, 0.7]
+    plt.fill(tail_x, tail_y, color='blue', ec='black')
+    
+    plt.xlim(0, 1)
+    plt.ylim(0, 1)
+    plt.axis('off')  # Turn off the axis
+
+    # Save the figure
+    image_path = 'static/images/fish_drawing.png'
+    plt.savefig(image_path, bbox_inches='tight')
+    plt.close()
+
+    return render_template('fish_drawing.html', image_path=image_path)
+
 @app.route('/visualize')
 def visualize():
+    print("Visualize route accessed")  # Debug log
     try:
-                # print("Entering visualize route")  # Debug log
-
         # Use database context manager for all database operations
         with db:
             # Check if we have any data
             count = DataRecord.select().count()
-                # print(f"Found {count} records")  # Debug log
 
             if count == 0:
-                # print("No records found, redirecting to upload")  # Debug log
                 flash('No data available. Please upload a CSV file first.', 'warning')
                 return redirect(url_for('upload'))
-
-                # print("Querying category counts")  # Debug log
 
             # Query 1: Bar chart of counts by category
             category_counts = list(DataRecord
                                  .select(DataRecord.category, SQL('COUNT(*)').alias('count'))
                                  .group_by(DataRecord.category)
                                  .dicts())
-                # print(f"Category counts: {category_counts}")  # Debug log
-
-
-                # print("Querying values")  # Debug log
 
             # Query 2: Histogram of values
             min_value = float(request.args.get('min_value', 0))
@@ -113,7 +124,6 @@ def visualize():
                          .select(DataRecord.value)
                          .where(DataRecord.value >= min_value)
                          .dicts())
-            print(f"Found {len(values)} values")  # Debug log
 
         # Create visualizations (outside db context since we have the data)
         df_categories = pd.DataFrame(category_counts)
@@ -161,7 +171,6 @@ def visualize():
                              min_value=min_value)
     
     except Exception as e:
-        # print(f"Error in visualize route: {str(e)}")  # Debug log
         flash(f'Error generating visualizations: {str(e)}', 'error')
         return redirect(url_for('home'))
 
@@ -192,6 +201,7 @@ def get_stats():
             'average_value': float(avg_value),
             'max_value': float(max_value),
             'category_count': category_count
+
         })
     except Exception as e:
         return jsonify({'error': str(e)}), 500
@@ -220,4 +230,4 @@ def initialize():
 # Run the application
 if __name__ == '__main__':
     initialize()
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=5001)
